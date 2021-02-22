@@ -33,3 +33,11 @@ new Product('Unicorn', 'assets/unicorn.jpg', 0);
 new Product('USB', 'assets/usb.gif', 0);
 new Product('Water Can', 'assets/water-can.jpg', 0);
 new Product('Wine Glass', 'assets/wine-glass.jpg', 0);
+
+let productOne = document.getElementById('product-1');
+let productTwo = document.getElementById('product-2');
+let productThree = document.getElementById('product-3');
+
+productOne.src = Product.all[1].filepath;
+productTwo.src = Product.all[2].filepath;
+productThree.src = Product.all[3].filepath;
