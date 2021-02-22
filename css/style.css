@@ -1,0 +1,19 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Horizontal and vertical align approach from w3schools https://www.w3schools.com/css/css_align.asp */
+
+  background-color: aliceblue;
+  height: 150px;
+  text-align: center;
+  font-size: 64px;
+}
+
+header span {
+  padding: 0 10px;
+}
+
+#logo {
+  font-family: 'Audiowide', sans-serif;
+}
