@@ -50,12 +50,20 @@ const HandleClickOnProduct = function(event) {
   if (imageClicked.id === 'product-selection') {
     alert('Please click on an image to make your selection.');
   } else {
-    // if (imageClicked.id === 'product-1'){
-    //   productOne
-    // }
+    if (imageClicked.id === 'product-1'){
+      productOne.timesClicked++;
+      console.log(productOne.timesClicked);
+    } else if (imageClicked.id === 'product-2') {
+      productTwo.timesClicked++;
+      console.log(productTwo.timesClicked);
+    } else if (imageClicked.id === 'product-3') {
+      productThree.timesClicked++;
+      console.log(productThree.timesClicked);
+    }
     generateNewProducts();
     totalClicks += 1;
   }
+  
 };
 
 ProductSelectSectionElem.addEventListener('click', HandleClickOnProduct);
