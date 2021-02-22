@@ -1,11 +1,12 @@
 'use strict';
 
 const ProductSelectSectionElem = document.getElementById('product-selection');
-const productOne = document.getElementById('product-1');
-const productTwo = document.getElementById('product-2');
-const productThree = document.getElementById('product-3');
+const productOneTag = document.getElementById('product-1');
+const productTwoTag = document.getElementById('product-2');
+const productThreeTag = document.getElementById('product-3');
 
 let totalClicks = 0;
+let productOne, productTwo, productThree;
 
 
 function Product(name, filepath, timesShown) {
@@ -20,12 +21,12 @@ function Product(name, filepath, timesShown) {
 Product.all = [];
 
 const renderProducts = function(indexOne, indexTwo, indexThree) {
-  productOne.src = Product.all[indexOne].filepath;
-  productTwo.src = Product.all[indexTwo].filepath;
-  productThree.src = Product.all[indexThree].filepath;
+  productOneTag.src = Product.all[indexOne].filepath;
+  productTwoTag.src = Product.all[indexTwo].filepath;
+  productThreeTag.src = Product.all[indexThree].filepath;
 };
 
-const generateRandomIndexes = function() {
+const generateNewProducts = function() {
   let indexOne = Math.floor(Math.random() * Product.all.length);
   let indexTwo, indexThree;
 
@@ -37,13 +38,24 @@ const generateRandomIndexes = function() {
     indexThree = Math.floor(Math.random() * Product.all.length);
   } while ((indexThree === indexOne) || (indexThree === indexTwo));
 
-  return [indexOne, indexTwo, indexThree];
+  productOne = Product.all[indexOne];
+  productTwo = Product.all[indexTwo];
+  productThree = Product.all[indexThree];
+
+  renderProducts(indexOne, indexTwo, indexThree);
 };
 
 const HandleClickOnProduct = function(event) {
-  let indexes = generateRandomIndexes();
-  renderProducts(indexes[0], indexes[1], indexes[2]);
-  totalClicks += 1;
+  let imageClicked = event.target;
+  if (imageClicked.id === 'product-selection') {
+    alert('Please click on an image to make your selection.');
+  } else {
+    // if (imageClicked.id === 'product-1'){
+    //   productOne
+    // }
+    generateNewProducts();
+    totalClicks += 1;
+  }
 };
 
 ProductSelectSectionElem.addEventListener('click', HandleClickOnProduct);
@@ -69,6 +81,4 @@ new Product('USB', 'assets/usb.gif', 0);
 new Product('Water Can', 'assets/water-can.jpg', 0);
 new Product('Wine Glass', 'assets/wine-glass.jpg', 0);
 
-productOne.src = Product.all[1].filepath;
-productTwo.src = Product.all[2].filepath;
-productThree.src = Product.all[3].filepath;
+generateNewProducts();
