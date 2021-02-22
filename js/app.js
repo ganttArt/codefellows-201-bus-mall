@@ -1,6 +1,12 @@
 'use strict';
 
+const ProductSelectSectionElem = document.getElementById('product-selection');
+const productOne = document.getElementById('product-1');
+const productTwo = document.getElementById('product-2');
+const productThree = document.getElementById('product-3');
+
 let totalClicks = 0;
+
 
 function Product(name, filepath, timesShown) {
   this.name = name;
@@ -12,6 +18,17 @@ function Product(name, filepath, timesShown) {
 }
 
 Product.all = [];
+
+const HandleClickOnProduct = function(event) {
+  productOne.src = Product.all[4].filepath;
+  productTwo.src = Product.all[5].filepath;
+  productThree.src = Product.all[6].filepath;
+
+  totalClicks += 1;
+  console.log(totalClicks);
+};
+
+ProductSelectSectionElem.addEventListener('click', HandleClickOnProduct);
 
 new Product('Bag', 'assets/bag.jpg', 0);
 new Product('Banana', 'assets/banana.jpg', 0);
@@ -33,10 +50,6 @@ new Product('Unicorn', 'assets/unicorn.jpg', 0);
 new Product('USB', 'assets/usb.gif', 0);
 new Product('Water Can', 'assets/water-can.jpg', 0);
 new Product('Wine Glass', 'assets/wine-glass.jpg', 0);
-
-let productOne = document.getElementById('product-1');
-let productTwo = document.getElementById('product-2');
-let productThree = document.getElementById('product-3');
 
 productOne.src = Product.all[1].filepath;
 productTwo.src = Product.all[2].filepath;
