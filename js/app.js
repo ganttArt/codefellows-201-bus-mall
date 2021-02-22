@@ -19,13 +19,31 @@ function Product(name, filepath, timesShown) {
 
 Product.all = [];
 
-const HandleClickOnProduct = function(event) {
-  productOne.src = Product.all[4].filepath;
-  productTwo.src = Product.all[5].filepath;
-  productThree.src = Product.all[6].filepath;
+const renderProducts = function(indexOne, indexTwo, indexThree) {
+  productOne.src = Product.all[indexOne].filepath;
+  productTwo.src = Product.all[indexTwo].filepath;
+  productThree.src = Product.all[indexThree].filepath;
+};
 
+const generateRandomIndexes = function() {
+  let indexOne = Math.floor(Math.random() * Product.all.length);
+  let indexTwo, indexThree;
+
+  do {
+    indexTwo = Math.floor(Math.random() * Product.all.length);
+  } while (indexTwo === indexOne);
+
+  do {
+    indexThree = Math.floor(Math.random() * Product.all.length);
+  } while ((indexThree === indexOne) || (indexThree === indexTwo));
+
+  return [indexOne, indexTwo, indexThree];
+};
+
+const HandleClickOnProduct = function(event) {
+  let indexes = generateRandomIndexes();
+  renderProducts(indexes[0], indexes[1], indexes[2]);
   totalClicks += 1;
-  console.log(totalClicks);
 };
 
 ProductSelectSectionElem.addEventListener('click', HandleClickOnProduct);

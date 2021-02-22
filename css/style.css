@@ -33,6 +33,12 @@ main h1 {
   padding: 15px 0;
 }
 
+#product-selection{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #product-selection img {
   width: 25%;
   margin: 3%;
