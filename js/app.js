@@ -88,6 +88,8 @@ const HandleViewResults = function() {
     listElem.textContent = `${currentProduct.name} had ${currentProduct.timesClicked} votes, and was seen ${currentProduct.timesShown} times.`;
     ulElem.appendChild(listElem);
   }
+  productSelectSectionElem.removeEventListener('click', HandleClickOnProduct);
+  viewResultsButton.removeEventListener('click', HandleViewResults);
 };
 
 
