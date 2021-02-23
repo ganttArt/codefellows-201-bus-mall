@@ -25,13 +25,13 @@ function Product(name, filepath, timesShown) {
 
 Product.all = [];
 
-const renderProducts = function(indexOne, indexTwo, indexThree) {
+const renderProducts = function (indexOne, indexTwo, indexThree) {
   productOneTag.src = Product.all[indexOne].filepath;
   productTwoTag.src = Product.all[indexTwo].filepath;
   productThreeTag.src = Product.all[indexThree].filepath;
 };
 
-const generateNewProducts = function() {
+const generateNewProducts = function () {
   let indexOne = Math.floor(Math.random() * Product.all.length);
   let indexTwo, indexThree;
 
@@ -55,20 +55,17 @@ const generateNewProducts = function() {
 };
 
 
-const HandleClickOnProduct = function(event) {
+const HandleClickOnProduct = function (event) {
   let imageClicked = event.target;
   if (imageClicked.id === 'product-selection') {
     alert('Please click on an image to make your selection.');
   } else {
-    if (imageClicked.id === 'product-1'){
+    if (imageClicked.id === 'product-1') {
       productOne.timesClicked++;
-      console.log(productOne.timesClicked);
     } else if (imageClicked.id === 'product-2') {
       productTwo.timesClicked++;
-      console.log(productTwo.timesClicked);
     } else if (imageClicked.id === 'product-3') {
       productThree.timesClicked++;
-      console.log(productThree.timesClicked);
     }
     generateNewProducts();
     totalClicks += 1;
@@ -78,7 +75,7 @@ const HandleClickOnProduct = function(event) {
   }
 };
 
-const HandleViewResults = function() {
+const HandleViewResults = function () {
   const ulElem = document.createElement('ul');
   mainElem.appendChild(ulElem);
 
