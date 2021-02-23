@@ -1,7 +1,7 @@
 'use strict';
 
 const mainElem = document.getElementsByTagName('main')[0];
-const ProductSelectSectionElem = document.getElementById('product-selection');
+const productSelectSectionElem = document.getElementById('product-selection');
 const productOneTag = document.getElementById('product-1');
 const productTwoTag = document.getElementById('product-2');
 const productThreeTag = document.getElementById('product-3');
@@ -78,7 +78,21 @@ const HandleClickOnProduct = function(event) {
   }
 };
 
-ProductSelectSectionElem.addEventListener('click', HandleClickOnProduct);
+const HandleViewResults = function() {
+  const ulElem = document.createElement('ul');
+  mainElem.appendChild(ulElem);
+
+  for (let i = 0; i < Product.all.length; i++) {
+    let listElem = document.createElement('li');
+    let currentProduct = Product.all[i];
+    listElem.textContent = `${currentProduct.name} had ${currentProduct.timesClicked} votes, and was seen ${currentProduct.timesShown} times.`;
+    ulElem.appendChild(listElem);
+  }
+};
+
+
+productSelectSectionElem.addEventListener('click', HandleClickOnProduct);
+viewResultsButton.addEventListener('click', HandleViewResults);
 
 
 new Product('Bag', 'assets/bag.jpg', 0);
