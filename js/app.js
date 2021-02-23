@@ -1,9 +1,14 @@
 'use strict';
 
+const mainElem = document.getElementsByTagName('main')[0];
 const ProductSelectSectionElem = document.getElementById('product-selection');
 const productOneTag = document.getElementById('product-1');
 const productTwoTag = document.getElementById('product-2');
 const productThreeTag = document.getElementById('product-3');
+
+const viewResultsButton = document.createElement('button');
+viewResultsButton.setAttribute('id', 'view-results-button');
+viewResultsButton.textContent = 'View Results';
 
 let totalClicks = 0;
 let productOne, productTwo, productThree;
@@ -42,8 +47,13 @@ const generateNewProducts = function() {
   productTwo = Product.all[indexTwo];
   productThree = Product.all[indexThree];
 
+  productOne.timesShown++;
+  productTwo.timesShown++;
+  productThree.timesShown++;
+
   renderProducts(indexOne, indexTwo, indexThree);
 };
+
 
 const HandleClickOnProduct = function(event) {
   let imageClicked = event.target;
@@ -63,10 +73,13 @@ const HandleClickOnProduct = function(event) {
     generateNewProducts();
     totalClicks += 1;
   }
-  
+  if (totalClicks === 25) {
+    mainElem.appendChild(viewResultsButton);
+  }
 };
 
 ProductSelectSectionElem.addEventListener('click', HandleClickOnProduct);
+
 
 new Product('Bag', 'assets/bag.jpg', 0);
 new Product('Banana', 'assets/banana.jpg', 0);
