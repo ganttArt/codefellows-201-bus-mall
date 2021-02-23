@@ -89,9 +89,42 @@ const HandleViewResults = function () {
   viewResultsButton.removeEventListener('click', HandleViewResults);
 };
 
+const generateChartLabels = function () {
+  let labels = [];
+  for (let i = 0; i < Product.all.length; i++) {
+    labels.push(Product.all[i].name);
+  }
+  return labels;
+};
+
+const generateChartData = function () {
+  let timesClickedData = [];
+  for (let i = 0; i < Product.all.length; i++) {
+    timesClickedData.push(Product.all[i].timesClicked);
+  }
+  return timesClickedData;
+};
+
+const renderChart = function () {
+  const canvasElem = document.createElement('canvas');
+  mainElem.appendChild(canvasElem);
+  var chart = new Chart(canvasElem, {
+    type: 'horizontalBar',
+    data: {
+      labels: generateChartLabels(),
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: generateChartData()
+      }]
+    },
+    options: {}
+  });
+};
 
 productSelectSectionElem.addEventListener('click', HandleClickOnProduct);
-viewResultsButton.addEventListener('click', HandleViewResults);
+viewResultsButton.addEventListener('click', renderChart);
 
 
 new Product('Bag', 'assets/bag.jpg', 0);
