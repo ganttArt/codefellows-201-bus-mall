@@ -76,15 +76,7 @@ const HandleClickOnProduct = function (event) {
 };
 
 const HandleViewResults = function () {
-  const ulElem = document.createElement('ul');
-  mainElem.appendChild(ulElem);
-
-  for (let i = 0; i < Product.all.length; i++) {
-    let listElem = document.createElement('li');
-    let currentProduct = Product.all[i];
-    listElem.textContent = `${currentProduct.name} had ${currentProduct.timesClicked} votes, and was seen ${currentProduct.timesShown} times.`;
-    ulElem.appendChild(listElem);
-  }
+  renderChart();
   productSelectSectionElem.removeEventListener('click', HandleClickOnProduct);
   viewResultsButton.removeEventListener('click', HandleViewResults);
 };
@@ -107,13 +99,15 @@ const generateChartData = function () {
 
 const renderChart = function () {
   const canvasElem = document.createElement('canvas');
+  canvasElem.setAttribute('id', 'results-chart');
   mainElem.appendChild(canvasElem);
+
   var chart = new Chart(canvasElem, {
     type: 'horizontalBar',
     data: {
       labels: generateChartLabels(),
       datasets: [{
-        label: 'My First dataset',
+        label: 'Product Results',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
         data: generateChartData()
@@ -124,8 +118,7 @@ const renderChart = function () {
 };
 
 productSelectSectionElem.addEventListener('click', HandleClickOnProduct);
-viewResultsButton.addEventListener('click', renderChart);
-
+viewResultsButton.addEventListener('click', HandleViewResults);
 
 new Product('Bag', 'assets/bag.jpg', 0);
 new Product('Banana', 'assets/banana.jpg', 0);
