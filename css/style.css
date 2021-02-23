@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Horizontal and vertical align approach from w3schools https://www.w3schools.com/css/css_align.asp */
+
+  background-color: aliceblue;
+  height: 150px;
+  text-align: center;
+  font-size: 64px;
+}
+
+header span {
+  padding: 0 10px;
+}
+
+#logo {
+  font-family: 'Audiowide', sans-serif;
+}
+
+main {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+main h1 {
+  font-size: 32px;
+  padding: 15px 0;
+}
+
+#product-selection{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#product-selection img {
+  width: 25%;
+  margin: 3%;
+}
+
+#view-results-button {
+  font-size: 16px;
+  margin: 20px;
+}
+
+ul {
+  margin-bottom: 20px;
+}
+
+li {
+  padding: 5px;
+}
