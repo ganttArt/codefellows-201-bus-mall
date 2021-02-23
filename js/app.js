@@ -32,16 +32,19 @@ const renderProducts = function (indexOne, indexTwo, indexThree) {
 };
 
 const generateNewProducts = function () {
-  let indexOne = Math.floor(Math.random() * Product.all.length);
-  let indexTwo, indexThree;
+  let indexOne, indexTwo, indexThree;
+
+  do {
+    indexOne = Math.floor(Math.random() * Product.all.length);
+  } while ((indexOne === lastSeenProducts[0]) || (indexOne === lastSeenProducts[1]) || (indexOne === lastSeenProducts[2]));
 
   do {
     indexTwo = Math.floor(Math.random() * Product.all.length);
-  } while (indexTwo === indexOne);
+  } while ((indexTwo === indexOne) || (indexTwo === lastSeenProducts[0]) || (indexTwo === lastSeenProducts[1]) || (indexTwo === lastSeenProducts[2]));
 
   do {
     indexThree = Math.floor(Math.random() * Product.all.length);
-  } while ((indexThree === indexOne) || (indexThree === indexTwo));
+  } while ((indexThree === indexOne) || (indexThree === indexTwo) || (indexThree === lastSeenProducts[0]) || (indexThree === lastSeenProducts[1]) || (indexThree === lastSeenProducts[2]));
 
   productOne = Product.all[indexOne];
   productTwo = Product.all[indexTwo];
@@ -51,6 +54,7 @@ const generateNewProducts = function () {
   productTwo.timesShown++;
   productThree.timesShown++;
 
+  lastSeenProducts = [indexOne, indexTwo, indexThree];
   renderProducts(indexOne, indexTwo, indexThree);
 };
 
@@ -141,4 +145,5 @@ new Product('USB', 'assets/usb.gif', 0);
 new Product('Water Can', 'assets/water-can.jpg', 0);
 new Product('Wine Glass', 'assets/wine-glass.jpg', 0);
 
+let lastSeenProducts = [0, 1, 2];
 generateNewProducts();
