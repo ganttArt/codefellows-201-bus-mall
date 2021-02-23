@@ -112,8 +112,8 @@ const renderChart = function () {
       labels: generateChartLabels(),
       datasets: [{
         label: 'Product Results',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(99, 219, 255, 0.666)',
+        borderColor: 'rgba(54, 208, 255, 0.666)',
         data: generateChartData()
       }]
     },
