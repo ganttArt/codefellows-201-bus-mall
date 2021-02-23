@@ -32,16 +32,19 @@ const renderProducts = function (indexOne, indexTwo, indexThree) {
 };
 
 const generateNewProducts = function () {
-  let indexOne = Math.floor(Math.random() * Product.all.length);
-  let indexTwo, indexThree;
+  let indexOne, indexTwo, indexThree;
+
+  do {
+    indexOne = Math.floor(Math.random() * Product.all.length);
+  } while ((indexOne === lastSeenProducts[0]) || (indexOne === lastSeenProducts[1]) || (indexOne === lastSeenProducts[2]));
 
   do {
     indexTwo = Math.floor(Math.random() * Product.all.length);
-  } while (indexTwo === indexOne);
+  } while ((indexTwo === indexOne) || (indexTwo === lastSeenProducts[0]) || (indexTwo === lastSeenProducts[1]) || (indexTwo === lastSeenProducts[2]));
 
   do {
     indexThree = Math.floor(Math.random() * Product.all.length);
-  } while ((indexThree === indexOne) || (indexThree === indexTwo));
+  } while ((indexThree === indexOne) || (indexThree === indexTwo) || (indexThree === lastSeenProducts[0]) || (indexThree === lastSeenProducts[1]) || (indexThree === lastSeenProducts[2]));
 
   productOne = Product.all[indexOne];
   productTwo = Product.all[indexTwo];
@@ -51,6 +54,7 @@ const generateNewProducts = function () {
   productTwo.timesShown++;
   productThree.timesShown++;
 
+  lastSeenProducts = [indexOne, indexTwo, indexThree];
   renderProducts(indexOne, indexTwo, indexThree);
 };
 
@@ -76,23 +80,49 @@ const HandleClickOnProduct = function (event) {
 };
 
 const HandleViewResults = function () {
-  const ulElem = document.createElement('ul');
-  mainElem.appendChild(ulElem);
-
-  for (let i = 0; i < Product.all.length; i++) {
-    let listElem = document.createElement('li');
-    let currentProduct = Product.all[i];
-    listElem.textContent = `${currentProduct.name} had ${currentProduct.timesClicked} votes, and was seen ${currentProduct.timesShown} times.`;
-    ulElem.appendChild(listElem);
-  }
+  renderChart();
   productSelectSectionElem.removeEventListener('click', HandleClickOnProduct);
   viewResultsButton.removeEventListener('click', HandleViewResults);
 };
 
+const generateChartLabels = function () {
+  let labels = [];
+  for (let i = 0; i < Product.all.length; i++) {
+    labels.push(Product.all[i].name);
+  }
+  return labels;
+};
+
+const generateChartData = function () {
+  let timesClickedData = [];
+  for (let i = 0; i < Product.all.length; i++) {
+    timesClickedData.push(Product.all[i].timesClicked);
+  }
+  return timesClickedData;
+};
+
+const renderChart = function () {
+  const canvasElem = document.createElement('canvas');
+  canvasElem.setAttribute('id', 'results-chart');
+  mainElem.appendChild(canvasElem);
+
+  var chart = new Chart(canvasElem, {
+    type: 'horizontalBar',
+    data: {
+      labels: generateChartLabels(),
+      datasets: [{
+        label: 'Product Results',
+        backgroundColor: 'rgba(99, 219, 255, 0.666)',
+        borderColor: 'rgba(54, 208, 255, 0.666)',
+        data: generateChartData()
+      }]
+    },
+    options: {}
+  });
+};
 
 productSelectSectionElem.addEventListener('click', HandleClickOnProduct);
 viewResultsButton.addEventListener('click', HandleViewResults);
-
 
 new Product('Bag', 'assets/bag.jpg', 0);
 new Product('Banana', 'assets/banana.jpg', 0);
@@ -115,4 +145,5 @@ new Product('USB', 'assets/usb.gif', 0);
 new Product('Water Can', 'assets/water-can.jpg', 0);
 new Product('Wine Glass', 'assets/wine-glass.jpg', 0);
 
+let lastSeenProducts = [0, 1, 2];
 generateNewProducts();
