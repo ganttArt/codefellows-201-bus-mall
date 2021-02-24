@@ -1,4 +1,5 @@
 'use strict';
+/* global Chart */
 
 const mainElem = document.getElementsByTagName('main')[0];
 const productSelectSectionElem = document.getElementById('product-selection');
@@ -106,7 +107,7 @@ const renderChart = function () {
   canvasElem.setAttribute('id', 'results-chart');
   mainElem.appendChild(canvasElem);
 
-  var chart = new Chart(canvasElem, {
+  new Chart(canvasElem, {
     type: 'horizontalBar',
     data: {
       labels: generateChartLabels(),
