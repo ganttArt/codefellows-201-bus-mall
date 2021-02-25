@@ -1,4 +1,5 @@
 'use strict';
+/* global Chart */
 
 const mainElem = document.getElementsByTagName('main')[0];
 const productSelectSectionElem = document.getElementById('product-selection');
@@ -79,7 +80,22 @@ const HandleClickOnProduct = function (event) {
   }
 };
 
+const syncWithLocalStorage = function() {
+  if (localStorage['products'] !== undefined) {
+    let lsProducts = JSON.parse(localStorage.getItem('products'));
+    for (let i = 0; i < Product.all.length; i++) {
+      const product = Product.all[i];
+      product.timesClicked += lsProducts[i].timesClicked;
+      product.timesShown += lsProducts[i].timesShown;
+    }
+  }
+  console.log('stringify');
+  let jsonProducts = JSON.stringify(Product.all);
+  localStorage.setItem('products', jsonProducts);
+};
+
 const HandleViewResults = function () {
+  syncWithLocalStorage();
   renderChart();
   productSelectSectionElem.removeEventListener('click', HandleClickOnProduct);
   viewResultsButton.removeEventListener('click', HandleViewResults);
@@ -106,14 +122,56 @@ const renderChart = function () {
   canvasElem.setAttribute('id', 'results-chart');
   mainElem.appendChild(canvasElem);
 
-  var chart = new Chart(canvasElem, {
+  new Chart(canvasElem, {
     type: 'horizontalBar',
     data: {
       labels: generateChartLabels(),
       datasets: [{
         label: 'Product Results',
-        backgroundColor: 'rgba(99, 219, 255, 0.666)',
-        borderColor: 'rgba(54, 208, 255, 0.666)',
+        backgroundColor: [
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+          'rgba(156, 239, 182, 0.5)',
+          'rgba(240, 148, 137, 0.5)',
+        ],
+        borderColor: [
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+          'rgba(156, 239, 182, 1)',
+          'rgba(240, 148, 137, 1)',
+        ],
         data: generateChartData()
       }]
     },
