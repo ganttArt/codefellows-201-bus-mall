@@ -80,7 +80,22 @@ const HandleClickOnProduct = function (event) {
   }
 };
 
+const syncWithLocalStorage = function() {
+  if (localStorage['products'] !== undefined) {
+    let lsProducts = JSON.parse(localStorage.getItem('products'));
+    for (let i = 0; i < Product.all.length; i++) {
+      const product = Product.all[i];
+      product.timesClicked += lsProducts[i].timesClicked;
+      product.timesShown += lsProducts[i].timesShown;
+    }
+  }
+  console.log('stringify');
+  let jsonProducts = JSON.stringify(Product.all);
+  localStorage.setItem('products', jsonProducts);
+};
+
 const HandleViewResults = function () {
+  syncWithLocalStorage();
   renderChart();
   productSelectSectionElem.removeEventListener('click', HandleClickOnProduct);
   viewResultsButton.removeEventListener('click', HandleViewResults);
